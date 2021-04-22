@@ -49,6 +49,8 @@
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("service-worker.js").then(reg => {
           console.log("Service worker added.", reg)
+        }, err => {
+          console.log("Service worker failed")
         });
       });
     }
