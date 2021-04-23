@@ -31,7 +31,7 @@ self.addEventListener("activate", event =>{
 	self.clients.claim();
 });
 
-self.addEventListner("fetch", event => {
+self.addEventListener("fetch", event => {
 	if(event.request.url.includes("/api/")){
 		event.respondWith(
 			caches.open(DATA_CACHE_NAME).then(cache =>{
