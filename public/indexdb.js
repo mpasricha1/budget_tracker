@@ -2,12 +2,12 @@ let indexdb;
 
 const request = indexedDB.open("budget", 1); 
 
-request.onupgradeneeded = event =>{
+request.onupgradeneeded = function(event){
   const db = event.target.result;   
   db.createObjectStore("pending", { autoIncrement: true}); 
 }; 
 
-request.onsuccess = event =>{
+request.onsuccess = function(event){
   db = event.target.result; 
 
   if (navigator.onLine){
@@ -15,11 +15,11 @@ request.onsuccess = event =>{
   }
 }; 
 
-request.onerror = event =>{
+request.onerror = function(event){
   console.log(`Error ${event.target.errorCode}`); 
 }; 
 
-const saveRecord = record => {
+const saveRecord = function(record){
   const transaction = db.transaction(["pending"], "readwrite"); 
 
   const store = transaction.objectStore("pending"); 
@@ -27,7 +27,7 @@ const saveRecord = record => {
   store.add(record); 
 }
 
-const checkDb = () =>{
+const checkDb = function(){
   const transaction = db.transaction(["pending"], "readwrite"); 
 
   const store = transaction.objectStore("pending"); 
