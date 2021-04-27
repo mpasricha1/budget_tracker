@@ -35,7 +35,7 @@ self.addEventListener("activate", function(event){
 });
 
 self.addEventListener("fetch", function(event){
-	if(event.request.url.includes("/api/transaction")){
+	if(event.request.url.includes("/api/")){
 		event.respondWith(
 			caches.open(DATA_CACHE_NAME).then(cache =>{
 				return fetch(event.request).then( response =>{
@@ -51,11 +51,11 @@ self.addEventListener("fetch", function(event){
 		return;
 	}
 
-	event.respondWith(
-		caches.open(CACHE_NAME).then(cache => {
-			return cache.match(event.request).then(response => {
-				return response || fetch(event.request);
-			})
-		})
-	)
+	// event.respondWith(
+	// 	caches.open(CACHE_NAME).then(cache => {
+	// 		return cache.match(event.request).then(response => {
+	// 			return response || fetch(event.request);
+	// 		})
+	// 	})
+	// )
 })
