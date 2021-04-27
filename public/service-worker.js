@@ -12,13 +12,13 @@ const FILES_TO_CACHE = [
  	
 ]
 
-self.addEventListener("install", event =>{
+self.addEventListener("install", function(event){
 	event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(FILES_TO_CACHE))); 
 
 	self.skipWaiting();
 })
 
-self.addEventListener("activate", event =>{
+self.addEventListener("activate", function(event){
 	event.waitUntil(
 		caches.keys().then(keyList =>{
 			return Promise.all(
@@ -34,8 +34,8 @@ self.addEventListener("activate", event =>{
 	self.clients.claim();
 });
 
-self.addEventListener("fetch", event => {
-	if(event.request.url.includes("/api/transaction") && event.request.method === "GET"){
+self.addEventListener("fetch", function(event){
+	if(event.request.url.includes("/api/transaction")){
 		event.respondWith(
 			caches.open(DATA_CACHE_NAME).then(cache =>{
 				return fetch(event.request).then( response =>{
