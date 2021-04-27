@@ -35,14 +35,14 @@ self.addEventListener("activate", event =>{
 });
 
 self.addEventListener("fetch", event => {
-	if(event.request.url.includes("./routes/api")){
+	if(event.request.url.includes("/api/transaction") && event.request.method === "GET"){
 		event.respondWith(
 			caches.open(DATA_CACHE_NAME).then(cache =>{
 				return fetch(event.request).then( response =>{
 					if (response.status === 200){
 						cache.put(event.request.url, response.clone()); 
 					}
-					return response
+					return response;
 				}).catch(err =>{
 					return cache.match(event.request); 
 				});
